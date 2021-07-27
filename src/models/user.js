@@ -31,8 +31,6 @@ const userSchema = new mongoose.Schema({
                 throw new Error('Password cannot contain "password"')
             }
         }
-
-
     },
     age: {
         type: Number,
@@ -50,7 +48,14 @@ const userSchema = new mongoose.Schema({
         }
     }]
 })
-
+//Prevent sending private data
+userSchema.methods.toJSON = function () {
+    const user = this;
+    const userObject = user.toObject();
+    delete userObject.password;
+    delete userObject.tokens;
+    return userObject;
+}
 //Find user by credentials
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({
