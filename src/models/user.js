@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const Task = require('../models/task')
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -48,6 +49,12 @@ const userSchema = new mongoose.Schema({
         }
     }]
 })
+//Virtual relationship 
+userSchema.virtual('tasks', {
+    ref: 'Task',
+    localField: "_id",
+    foreignField: "owner"
+})
 //Prevent sending private data
 userSchema.methods.toJSON = function () {
     const user = this;
@@ -88,6 +95,15 @@ userSchema.pre('save', async function (next) {
     if (user.isModified('password')) {
         user.password = await bcrypt.hash(user.password, 8);
     }
+    next();
+})
+//Delete all tasks after deleting user
+userSchema.pre('remove', async function (next) {
+    const user = this;
+    await Task.deleteMany({
+        owner: user._id
+    });
+
     next();
 })
 const User = mongoose.model('User', userSchema)

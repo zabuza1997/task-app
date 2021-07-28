@@ -17,7 +17,14 @@ app.use(taskRouter);
 app.listen(port, () => {
     console.log('Server is up on port: ' + port)
 })
-
+// const Task = require('./models/task');
+// const User = require('./models/user');
+// const main = async () => {
+//     const user = await User.findById('60f45561e67b1228d0a21ffc');
+//     await user.populate('tasks').execPopulate();
+//     console.log(user.tasks)
+// }
+// main();
 // const jwt = require('jsonwebtoken');
 
 // const myFunction = async () => {
