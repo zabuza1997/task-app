@@ -48,6 +48,8 @@ const userSchema = new mongoose.Schema({
             required: true
         }
     }]
+}, {
+    timestamps: true
 })
 //Virtual relationship 
 userSchema.virtual('tasks', {
@@ -103,7 +105,6 @@ userSchema.pre('remove', async function (next) {
     await Task.deleteMany({
         owner: user._id
     });
-
     next();
 })
 const User = mongoose.model('User', userSchema)
