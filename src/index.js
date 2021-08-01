@@ -8,6 +8,13 @@ const app = express();
 // app.use((req, res, next) => {
 //     res.status(503).send('Server maintenance. Please comeback later!')
 // })
+const multer = require('multer');
+const upload = multer({
+    dest: 'images'
+})
+app.post('/upload', (req, res) => {
+    res.send
+})
 app.use(express.json());
 app.use(userRouter);
 app.use(taskRouter);
