@@ -95,7 +95,7 @@ userSchema.methods.generateAuthToken = async function () {
     {
       _id: user._id.toString(),
     },
-    "fucklife123"
+    process.env.JWT_SECRET
   );
   user.tokens = user.tokens.concat({
     token,

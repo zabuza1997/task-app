@@ -1,29 +1,29 @@
-const express = require('express');
-require('./db/mongoose');
+const express = require("express");
+require("./db/mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
 
-const userRouter = require('./routers/user');
-const taskRouter = require('./routers/task');
-const port = process.env.PORT || 3000;
+const userRouter = require("./routers/user");
+const taskRouter = require("./routers/task");
+const port = process.env.PORT;
 const app = express();
 // app.use((req, res, next) => {
 //     res.status(503).send('Server maintenance. Please comeback later!')
 // })
-const multer = require('multer');
+const multer = require("multer");
 const upload = multer({
-    dest: 'images'
-})
-app.post('/upload', (req, res) => {
-    res.send
-})
+  dest: "images",
+});
+app.post("/upload", (req, res) => {
+  res.send;
+});
 app.use(express.json());
 app.use(userRouter);
 app.use(taskRouter);
 
-
-
 app.listen(port, () => {
-    console.log('Server is up on port: ' + port)
-})
+  console.log("Server is up on port: " + port);
+});
 // const Task = require('./models/task');
 // const User = require('./models/user');
 // const main = async () => {
