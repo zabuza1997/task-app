@@ -1,6 +1,7 @@
 config
 .env
-node_modules
+node_modules/
 promises.js
 callbacks.js
 promises.js
+node_modules/
